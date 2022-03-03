@@ -2,24 +2,31 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;600&display=swap" rel="stylesheet">
 <style>
 body {
   margin: 0 auto;
   max-width: 800px;
   padding: 0 20px;
+  font-family: 'Roboto Slab', serif;
+  background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  margin-top: 20px;
 }
 
 .container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
+  background-color: #8DEDEA;
   padding: 10px;
   margin: 10px 0;
 }
 
 .darker {
   border-color: #ccc;
-  background-color: #ddd;
+  background-color: #fff;
 }
 
 .container::after {
@@ -33,7 +40,6 @@ body {
   max-width: 60px;
   width: 100%;
   margin-right: 20px;
-  border-radius: 50%;
 }
 
 .container img.right {
@@ -51,88 +57,113 @@ body {
   float: left;
   color: #999;
 }
+.header{
+  padding: 30px;
+  font-weight: 600;
+  font-size: 250%;
+  margin: 2% auto 3% auto;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.button {
+    font-family:'Roboto Slab', serif;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+
+    display: block;
+    color: #252537;
+    height: 50px;
+  
+    padding: 0 20px;
+    background: #fff;
+    border-radius: 5px;
+    
+    outline: none;
+    border: 0.5px solid rgba(1, 0, 1, .25);
+    border-style: ridge;
+  
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s linear;
+    
+    margin: 1% auto;
+    letter-spacing: 0.05em;
+    width: 100%;
+  }
+  .button:hover {
+    background-color:#CEFAF4;
+    letter-spacing: 0.20em;
+  }
+  .wrapper{
+    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+    background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+  }
 </style>
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
+  <div class="wrapper">
+    <h2 class="header">{{room}} - DjangoChat </h2>
 
-<h2>{{room}} - DjangoChat </h2>
+    <div id="display">
 
-<div id="display">
+    <!-- <div class="container darker">
+      <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+      <span class="time-left">20th, April 2021</span>
+    </div> -->
 
-<!-- <div class="container darker">
-  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
-  <span class="time-left">20th, April 2021</span>
-</div> -->
+    </div>
 
-</div>
+    <script>
+    $(document).ready(function(){
 
-<script>
-$(document).ready(function(){
-
-setInterval(function(){
-    $.ajax({
-        type: 'GET',
-        url : "/getMessages/{{room}}/",
-        success: function(response){
-            $("#display").empty();
-            for (var key in response.messages)
-            {
-                var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
-                $("#display").append(temp);
+    setInterval(function(){
+        $.ajax({
+            type: 'GET',
+            url : "/getMessages/{{room}}/",
+            success: function(response){
+                $("#display").empty();
+                for (var key in response.messages)
+                {
+                    var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
+                    $("#display").append(temp);
+                }
+            },
+            error: function(response){
+                alert('An error occured')
             }
-        },
-        error: function(response){
-            alert('An error occured')
+        });
+    },1000);
+    })
+    </script>
+
+    <div class="container">
+        <style>
+        input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
         }
-    });
-},1000);
-})
-</script>
+        div {
+        border-radius: 5px;
+        background-color: #F8BFFD;
+        padding: 20px;
+        }
+        </style>
 
-<div class="container">
-    <style>
-    input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    }
-
-    input[type=submit] {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    }
-
-    input[type=submit]:hover {
-    background-color: #45a049;
-    }
-
-    div {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    }
-    </style>
-
-    <form id="post-form">
-        {% csrf_token %}
-        <input type="hidden" name="username" id="username" value="{{username}}"/>
-        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
-        <input type="text" name="message" id="message" width="100px" />
-        <input type="submit" value="Send">
-    </form>
-</div>
-
+        <form id="post-form">
+            {% csrf_token %}
+            <input type="hidden" name="username" id="username" value="{{username}}"/>
+            <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+            <input type="text" name="message" id="message" width="100px" />
+            <input type="submit" value="Send"class="button">
+        </form>
+    </div>
+  </div>
 
 </body>
 
