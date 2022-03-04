@@ -14,8 +14,8 @@ For the styling this codepen was really helpful: [Log In Form CSS 2017](https://
 ## How to run local:
 
 1. Create a virtual environment and activate it. `virtualenv venv` + `source venv/bin/activate`
-2. Install requirements by running on you console: `pip install -r requirements.txt` .
-3. Go inside de chatapp folder `cd chatapp` .
+2. Install requirements by running on your console: `pip install -r requirements.txt` .
+3. Go inside the chatapp folder `cd chatapp` .
 4. Run `./manage.py runserver` .
 
 It will run on port 127.0.0.1:8000.
